@@ -1,0 +1,750 @@
+@use "_js";
+
+@mixin mq() {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+body {
+  line-height: 1.4;
+  color: #555;
+  background-image: url(/images/bgimage.png);
+  background-attachment: fixed;
+}
+
+img {
+  width: 100%;
+}
+
+.container {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+h1 {
+  padding-top: 200px;
+  font-size: 60px;
+  line-height: 80px;
+  width: 400px;
+  margin: auto;
+  text-align: center;
+  @include mq() {
+    padding-top: 100px;
+    width: 360px;
+  }
+}
+
+.sec__title {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 40px;
+  text-align: center;
+  font-weight: bold;
+  padding: 40px 0 60px;
+}
+
+/* =======================================================================
+ header
+======================================================================= */
+#header {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  position: fixed;
+  background-color: #fff;
+  width: 100vw;
+  font-family: "Josefin Sans", sans-serif;
+  z-index: 10;
+  @include mq() {
+    position: static;
+    display: block;
+    height: 70px;
+  }
+}
+.header__logo {
+  width: 100%;
+  max-width: 64px;
+  @include mq() {
+    padding: 10px;
+    max-width: 80px;
+    margin: 0 auto;
+  }
+}
+
+nav {
+  @include mq() {
+    position: fixed;
+    z-index: 99;
+    top: -120%;
+    width: 100%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.6s;
+  }
+  ul {
+    @include mq() {
+      position: absolute;
+      z-index: 99;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    li {
+      &.current a {
+        color: #000;
+        text-shadow: 1px 1px #444;
+      }
+      a {
+        display: block;
+        text-decoration: none;
+        color: #888;
+        padding: 10px;
+        transition: all 0.3s;
+        &:hover {
+          color: #000;
+          text-shadow: 1px 1px #444;
+        }
+      }
+    }
+  }
+
+  &.panelactive {
+    @include mq() {
+      top: 0;
+    }
+  }
+}
+
+.nav {
+  &__list {
+    display: flex;
+    @include mq() {
+      display: block;
+    }
+    a {
+      @include mq() {
+        color: #555;
+        padding: 5px;
+        display: block;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        border-bottom: 2px solid #555;
+      }
+      &:hover {
+        @include mq() {
+          color: #fff;
+          background-color: #555;
+          transition: 0.8s;
+          border-bottom: 2px solid #000;
+        }
+      }
+    }
+    &__item {
+      padding: 15px 0;
+    }
+  }
+}
+/* ハンバーガーメニュー
+ //===================================================================== */
+.open {
+  @include mq() {
+    &__btn {
+      position: fixed;
+      background: #555;
+      top: 30px;
+      left: 30px;
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      z-index: 100;
+      span {
+        display: inline-block;
+        transition: all 0.5s;
+        position: absolute;
+        left: 14px;
+        height: 2px;
+        border-radius: 5px;
+        background: #fff;
+        width: 45%;
+        &:nth-of-type(1) {
+          top: 11px;
+        }
+        &:nth-of-type(2) {
+          top: 17px;
+        }
+        &:nth-of-type(3) {
+          top: 23px;
+          &::after {
+            content: "Menu";
+            position: absolute;
+            top: 7px;
+            left: -2px;
+            color: #fff;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+          }
+        }
+      }
+      &.active span:nth-of-type(1) {
+        top: 12px;
+        left: 16px;
+        transform: translateY(6px) rotate(-45deg);
+        width: 30%;
+      }
+
+      &.active span:nth-of-type(2) {
+        opacity: 0;
+      }
+
+      &.active span:nth-of-type(3) {
+        top: 24px;
+        left: 16px;
+        transform: translateY(-6px) rotate(45deg);
+        width: 30%;
+        &::after {
+          content: "Close";
+          transform: translateY(0) rotate(-45deg);
+          top: 5px;
+          left: 3px;
+        }
+      }
+    }
+  }
+}
+
+/* =======================================================================
+ mainview
+======================================================================= */
+#mainview {
+  height: 700px;
+  background-color: #fff;
+  position: relative;
+  top: 64px;
+  text-align: center;
+  font-family: "Josefin Sans", sans-serif;
+
+  @include mq() {
+    height: 500px;
+    margin-top: -64px;
+    padding-top: 64px;
+  }
+}
+
+/* =======================================================================
+ About
+======================================================================= */
+#about {
+  text-align: center;
+  padding: 100px 0 150px;
+  @include mq() {
+    padding: 50px 0;
+    margin-top: 64px;
+  }
+}
+
+#about p {
+  line-height: 2;
+}
+
+/* =======================================================================
+ Profile
+======================================================================= */
+#profile {
+  padding: 100px 0;
+  background-color: #fff;
+  @include mq() {
+    padding: 60px 0;
+  }
+}
+
+.profile {
+  &__box {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    align-items: center;
+    @include mq() {
+      display: block;
+    }
+    img {
+      width: 150px;
+      height: 150px;
+      @include mq() {
+        display: block;
+        margin: auto;
+      }
+    }
+  }
+
+  &__text {
+    width: 50%;
+    @include mq() {
+      width: 100%;
+    }
+    p {
+      padding-bottom: 5px;
+    }
+  }
+}
+
+/* =======================================================================
+ Works
+======================================================================= */
+#works {
+  padding: 100px 0;
+  @include mq() {
+    padding: 60px 0;
+  }
+}
+
+.works {
+  &__box {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    @include mq() {
+      padding-top: 20px;
+    }
+    &__item {
+      width: 40%;
+      @include mq() {
+        width: 90%;
+      }
+      img {
+        transition: 0.5s;
+        border-radius: 5%;
+        max-width: 400px;
+        height: 300px;
+        object-fit: cover;
+        display: block;
+        margin: auto;
+        @include mq() {
+          box-shadow: 2px 2px 5px 2px;
+        }
+        &:hover {
+          box-shadow: 0 0 5px 2px #000;
+          opacity: 0.7;
+          transition: 0.5s;
+          transform: scale(1.05);
+        }
+      }
+      h3 {
+        text-align: center;
+        padding: 20px 0;
+      }
+    }
+  }
+}
+.delay-time {
+  &02 {
+    animation-delay: 0.2s;
+  }
+  &03 {
+    animation-delay: 0.3s;
+  }
+  &04 {
+    animation-delay: 0.4s;
+  }
+}
+
+/* =======================================================================
+ Skill
+======================================================================= */
+#skill {
+  padding: 100px 0;
+  background-color: #fff;
+  @include mq() {
+    padding: 60px 0;
+    background-color: #fff;
+  }
+}
+
+.skill {
+  &__box {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px 20px;
+    margin: 10px auto;
+    &__item {
+      width: 40%;
+      text-align: center;
+      @include mq() {
+        width: 90%;
+        text-align: center;
+      }
+      h3 {
+        padding: 10px 0;
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 28px;
+      }
+    }
+  }
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+
+  &__percentage {
+    opacity: 0;
+    transition: opacity 0.6s;
+  }
+
+  &__bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    transition: width 3s cubic-bezier(0.22, 1, 0.36, 1);
+    &__container {
+      position: relative;
+      width: 95%;
+      height: 25px;
+      background-color: #f3f3f3;
+      overflow: hidden;
+      border-radius: 5px;
+      box-shadow: 5px 5px 10px -5px #000;
+    }
+  }
+  &__text {
+    &__box {
+      padding: 20px 20px 0 20px;
+      text-align: left;
+      h4 {
+        padding: 10px 0;
+        font-weight: bold;
+      }
+      li {
+        list-style: square;
+      }
+    }
+  }
+}
+.bar {
+  &__html {
+    background-color: #e44f26;
+  }
+  &__css {
+    background-color: #136eb0;
+  }
+  &__js {
+    background-color: #eed81d;
+  }
+  &__jquery {
+    background-color: #06538a;
+  }
+  &__react {
+    background-color: #48cef7;
+  }
+  &__next {
+    background-color: #000;
+  }
+  &__ruby {
+    background-color: #a81400;
+  }
+}
+.name {
+  &__html {
+    color: #e44f26;
+  }
+  &__css {
+    color: #136eb0;
+  }
+  &__js {
+    color: #eed81d;
+  }
+  &__jquery {
+    color: #06538a;
+  }
+  &__react {
+    color: #48cef7;
+  }
+  &__next {
+    color: #000;
+  }
+  &__ruby {
+    color: #a81400;
+  }
+}
+
+/* =======================================================================
+ History
+======================================================================= */
+#history {
+  padding: 100px 0;
+  @include mq() {
+    padding: 60px 0;
+  }
+}
+
+.timeline {
+  max-width: 700px;
+  width: 100%;
+  margin: 50px auto;
+  padding: 0 30px;
+  @include mq() {
+    padding: 0 10px;
+    margin: 0;
+  }
+  li {
+    position: relative;
+    list-style: none;
+    padding: 10px 0 20px 0;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      background: #555;
+      border-radius: 50%;
+    }
+  }
+  dl {
+    margin: 10px 0 20px 40px;
+    padding: 25px;
+    background-color: white;
+    @include mq() {
+      margin-left: 2em;
+      padding: 20px 10px;
+      box-shadow: 2px 2px 10px #555;
+      border-radius: 5px;
+    }
+  }
+  dd {
+    padding: 10px 0;
+  }
+}
+
+.border-line {
+  position: absolute;
+  left: 0.24em;
+  top: 0;
+  width: 2px;
+  height: 0;
+  background: #ccc;
+}
+
+.btnLine {
+  position: relative;
+  color: #555;
+  text-decoration: none;
+  outline: none;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    border: solid #555;
+    width: 20px;
+    height: 10px;
+    transition: all 0.3s ease-in-out;
+    @include mq() {
+      border-width: 0;
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+
+  &::before {
+    top: 0;
+    left: 0;
+    border-width: 2px 0 0 2px;
+    @include mq(){
+      border-width:0;
+    }
+  }
+
+  &::after {
+    bottom: 0;
+    right: 0;
+    border-width: 0 2px 2px 0;
+    @include mq(){
+      border-width:0;
+    }
+  }
+
+  &:hover {
+    &::before,
+    &::after {
+      width: calc(100%);
+      height: calc(100%);
+      border-color: #555;
+      @include mq() {
+        width: calc(0%);
+        height: calc(0%);
+      }
+    }
+  }
+}
+
+/* =======================================================================
+ Info
+======================================================================= */
+#info {
+  background-color: #fff;
+  .container {
+    padding: 60px 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 720px;
+    @include mq();
+  }
+}
+
+.info {
+  &__text {
+    padding: 10px 0;
+    &__box {
+      padding: 20px 0 60px;
+      text-align: center;
+    }
+  }
+
+  &__item {
+    border-top: 1px solid #ddd;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    @include mq() {
+      display: block;
+      text-align: center;
+    }
+    &:nth-child(3) {
+      border-bottom: 1px solid #ddd;
+    }
+    &__label {
+      width: 100%;
+      max-width: 248px;
+      font-weight: bold;
+      font-size: 18px;
+      @include mq() {
+        max-width: inherit;
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+      }
+    }
+    &__input {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      margin-left: 40px;
+      padding: 0 1em;
+      height: 48px;
+      flex: 1;
+      width: 100%;
+      max-width: 410px;
+      background: #eaedf2;
+      font-size: 18px;
+      @include mq() {
+        margin-left: 0;
+        margin-top: 18px;
+        height: 40px;
+        flex: inherit;
+        font-size: 15px;
+        text-align: left;
+      }
+    }
+    &__textarea {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      margin-left: 40px;
+      height: 216px;
+      width: 100%;
+      max-width: 410px;
+      background: #eaedf2;
+      font-size: 18px;
+      @include mq() {
+        margin-top: 18px;
+        margin-left: 0;
+        height: 150px;
+        flex: inherit;
+        font-size: 15px;
+      }
+    }
+  }
+  &__label {
+    &__required {
+      border-radius: 6px;
+      margin-right: 8px;
+      padding: 8px 0;
+      width: 48px;
+      display: inline-block;
+      text-align: center;
+      background: #5bc8ac;
+      color: #fff;
+      font-size: 14px;
+      @include mq() {
+        border-radius: 4px;
+        padding: 4px 0;
+        width: 32px;
+        font-size: 10px;
+      }
+    }
+  }
+  &__btn {
+    border-radius: 6px;
+    margin: 32px auto;
+    padding: 20px 0;
+    width: 280px;
+    display: block;
+    background: #5bc8ac;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    box-shadow: 2px 2px 5px 0 #000;
+    @include mq() {
+      margin-top: 24px;
+      padding: 8px 0;
+      width: 160px;
+      font-size: 16px;
+    }
+    &:hover {
+      opacity: 0.7;
+      transition: 0.2s;
+    }
+    &:active {
+      -webkit-transform: translate(2px, 2px);
+      -moz-transform: translate(2px, 2px);
+      transform: translate(2px, 2px);
+      border-bottom: none;
+      box-shadow: 0 0 #5bc8ac;
+    }
+  }
+}
+
+/* =======================================================================
+ footer
+======================================================================= */
+#footer {
+  text-align: center;
+  color: #fff;
+  text-shadow: 3px 3px 10px #000;
+  .sec__title {
+    padding: 120px 0;
+    @include mq() {
+      padding: 60px 0;
+    }
+  }
+  small {
+    display: block;
+    padding: 20px 0;
+    background-color: #fff;
+    color: #555;
+    text-shadow: none;
+    @include mq() {
+      padding: 10px 0;
+    }
+  }
+}
